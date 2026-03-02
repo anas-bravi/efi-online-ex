@@ -1295,6 +1295,138 @@
         }
         .back-to-top.show { opacity: 1; pointer-events: all; }
         .back-to-top:hover { background: var(--efi-blue-light); transform: translateY(-3px); }
+
+        /* ═══════════════════════════════════════════════════
+           DESIGN REFRESH — v2
+        ═══════════════════════════════════════════════════ */
+
+        /* Hero — bottom fade + deeper card shadow */
+        .hero { overflow: hidden; }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0; z-index: 3;
+            height: 110px;
+            background: linear-gradient(to bottom, transparent, #ffffff);
+            pointer-events: none;
+        }
+        .hero-product-card {
+            box-shadow: 0 40px 90px rgba(0,0,0,0.45), 0 10px 30px rgba(0,0,0,0.2) !important;
+        }
+        .hero-bg-overlay {
+            background: linear-gradient(125deg, rgba(8,18,34,0.92) 0%, rgba(26,58,92,0.72) 55%, rgba(26,58,92,0.45) 100%) !important;
+        }
+
+        /* Collections — portrait ratio (3/4) */
+        .collection-image { aspect-ratio: 3/4 !important; }
+
+        /* Collections — CTA overlay on hover */
+        .collection-cta-overlay {
+            position: absolute;
+            inset: auto 0 0;
+            padding: 70px 14px 16px;
+            background: linear-gradient(to top, rgba(5,12,25,0.88) 0%, transparent 100%);
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .collection-card:hover .collection-cta-overlay { opacity: 1; transform: translateY(0); }
+        .collection-cta-btn {
+            display: block; width: 100%; padding: 10px 16px;
+            background: #fff; color: var(--efi-dark);
+            border: none; border-radius: 50px;
+            font-weight: 700; font-size: 0.8rem; letter-spacing: 0.3px;
+            cursor: pointer; font-family: 'Inter', sans-serif;
+            transition: background 0.2s, color 0.2s;
+        }
+        .collection-cta-btn:hover { background: var(--efi-red); color: #fff; }
+
+        /* Section label — dot accent */
+        .section-label {
+            display: inline-flex !important;
+            align-items: center; gap: 8px;
+        }
+        .section-label::before {
+            content: '';
+            width: 7px; height: 7px;
+            background: var(--efi-blue-bright);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Lifestyle banner — taller, stronger overlay */
+        .lifestyle-banner { height: 660px !important; }
+        .lifestyle-overlay {
+            background: linear-gradient(to right,
+                rgba(10,28,55,0.94) 0%,
+                rgba(10,28,55,0.55) 55%,
+                rgba(10,28,55,0.08) 100%) !important;
+        }
+
+        /* Why-EFI cards — colored left border on hover */
+        .why-card {
+            border-left: 4px solid var(--efi-gray-200) !important;
+            transition: border-left-color 0.3s, transform 0.3s, box-shadow 0.3s !important;
+        }
+        .why-card:hover { border-left-color: var(--efi-blue-bright) !important; }
+
+        /* ── GALLERY : BENTO GRID ── */
+        .gallery {
+            display: grid !important;
+            grid-template-columns: 2.2fr 1fr 1fr !important;
+            grid-template-rows: 380px 300px !important;
+            gap: 4px !important;
+            padding: 0 !important;
+            background: #07111b;
+        }
+        .gallery-item { aspect-ratio: unset !important; border-radius: 0 !important; }
+        .gallery-item:nth-child(1) { grid-row: 1 / 3; }
+        .gallery-item:nth-child(4) { grid-column: 2 / 4; }
+
+        /* Showcase — better aspect ratio */
+        .showcase-image { aspect-ratio: 3/2 !important; }
+
+        /* Review cards — decorative quote mark */
+        .review-card { overflow: hidden; position: relative; }
+        .review-card::before {
+            content: '"';
+            position: absolute;
+            top: -8px; right: 14px;
+            font-size: 5rem; line-height: 1;
+            font-family: 'Playfair Display', serif;
+            color: var(--efi-gray-200);
+            pointer-events: none;
+        }
+
+        /* Footer — deeper gradient */
+        .footer {
+            background: linear-gradient(170deg, #06101a 0%, #1a1a2e 100%) !important;
+        }
+
+        /* Comparison — highlight best-seller column */
+        .comparison-table thead th:nth-child(2) { background: #1c5a8a !important; }
+        .comparison-table tbody tr td:nth-child(2) { background: rgba(28,90,138,0.05); }
+
+        /* France banner — subtle texture highlight */
+        .france-banner::before { width: 8px !important; }
+        .france-banner::after { width: 8px !important; }
+
+        @media (max-width: 1100px) {
+            .gallery {
+                grid-template-columns: 1fr 1fr !important;
+                grid-template-rows: 280px 240px 240px !important;
+            }
+            .gallery-item:nth-child(1) { grid-row: auto !important; }
+            .gallery-item:nth-child(4) { grid-column: 1 / 3 !important; }
+        }
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr 1fr !important;
+                grid-template-rows: 200px 200px !important;
+            }
+            .gallery-item:nth-child(1) { grid-row: auto !important; }
+            .gallery-item:nth-child(4) { grid-column: 1 / 3 !important; }
+        }
     </style>
 </head>
 <body>
@@ -1333,7 +1465,7 @@
     <!-- HERO -->
     <section class="hero">
         <div class="hero-bg">
-            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80" alt="Maison moderne avec entree elegante">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=92&auto=format&fit=crop" alt="Maison moderne avec entree elegante">
             <div class="hero-bg-overlay"></div>
         </div>
         <div class="hero-content">
@@ -1366,7 +1498,7 @@
             </div>
             <div class="hero-visual">
                 <div class="hero-product-card">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Collection Armor - Coffre a poubelles acier">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=92&auto=format&fit=crop" alt="Collection Armor - Coffre a poubelles acier">
                     <div class="hero-product-overlay">
                         <h3>Collection Armor &mdash; 2 bacs</h3>
                         <p>&Agrave; partir de 349 &euro; &bull; Acier galvanis&eacute;</p>
@@ -1414,8 +1546,11 @@
             <!-- Armor -->
             <div class="collection-card fade-in">
                 <div class="collection-image">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=500&q=80" alt="Collection Armor - Acier galvanise">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=92&auto=format&fit=crop" alt="Collection Armor - Acier galvanise">
                     <div class="collection-tag best">Best-seller</div>
+                    <div class="collection-cta-overlay">
+                        <button class="collection-cta-btn">Voir la collection &rarr;</button>
+                    </div>
                 </div>
                 <div class="collection-info">
                     <div class="collection-stars">
@@ -1435,8 +1570,11 @@
             <!-- Bastide -->
             <div class="collection-card fade-in">
                 <div class="collection-image">
-                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500&q=80" alt="Collection Bastide - Aluminium">
+                    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=92&auto=format&fit=crop&crop=entropy" alt="Collection Bastide - Aluminium">
                     <div class="collection-tag new">Nouveau</div>
+                    <div class="collection-cta-overlay">
+                        <button class="collection-cta-btn">Voir la collection &rarr;</button>
+                    </div>
                 </div>
                 <div class="collection-info">
                     <div class="collection-stars">
@@ -1456,8 +1594,11 @@
             <!-- Provence -->
             <div class="collection-card fade-in">
                 <div class="collection-image">
-                    <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=500&q=80" alt="Collection Provence - Bois et metal">
+                    <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=600&q=92&auto=format&fit=crop" alt="Collection Provence - Bois et metal">
                     <div class="collection-tag eco">&Eacute;co-con&ccedil;u</div>
+                    <div class="collection-cta-overlay">
+                        <button class="collection-cta-btn">Voir la collection &rarr;</button>
+                    </div>
                 </div>
                 <div class="collection-info">
                     <div class="collection-stars">
@@ -1477,8 +1618,11 @@
             <!-- Elegance -->
             <div class="collection-card fade-in">
                 <div class="collection-image">
-                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500&q=80" alt="Collection Elegance - Premium">
+                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=92&auto=format&fit=crop" alt="Collection Elegance - Premium">
                     <div class="collection-tag premium">Premium</div>
+                    <div class="collection-cta-overlay">
+                        <button class="collection-cta-btn">Voir la collection &rarr;</button>
+                    </div>
                 </div>
                 <div class="collection-info">
                     <div class="collection-stars">
@@ -1500,7 +1644,7 @@
 
     <!-- LIFESTYLE BANNER -->
     <div class="lifestyle-banner">
-        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1920&q=80" alt="Maison moderne avec jardin soigne">
+        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1920&q=92&auto=format&fit=crop" alt="Maison moderne avec jardin soigne">
         <div class="lifestyle-overlay">
             <div class="lifestyle-text fade-in">
                 <h2>La premi&egrave;re impression compte</h2>
@@ -1584,7 +1728,7 @@
             </div>
             <div class="france-visual slide-in-right">
                 <div class="france-image">
-                    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=700&q=80" alt="Ateliers EFI - Travail du metal">
+                    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=92&auto=format&fit=crop" alt="Ateliers EFI - Travail du metal">
                     <div class="france-image-overlay">
                         <div class="france-image-label">Ateliers EFI &mdash; Cholet</div>
                         <div class="france-image-sublabel">53 Rue Yvette Cauchois, 49300 Cholet</div>
@@ -1609,7 +1753,7 @@
         <div class="showcase-grid">
             <div class="showcase-item fade-in">
                 <div class="showcase-image">
-                    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=700&q=80" alt="Armor 2 bacs - Best-seller">
+                    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=92&auto=format&fit=crop" alt="Armor 2 bacs - Best-seller">
                 </div>
                 <div class="showcase-content">
                     <h3>Armor 2 bacs &mdash; 240L</h3>
@@ -1622,7 +1766,7 @@
             </div>
             <div class="showcase-item fade-in">
                 <div class="showcase-image">
-                    <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=700&q=80" alt="Bastide 3 bacs - Aluminium">
+                    <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=92&auto=format&fit=crop" alt="Bastide 3 bacs - Aluminium">
                 </div>
                 <div class="showcase-content">
                     <h3>Bastide 3 bacs &mdash; Aluminium</h3>
@@ -1635,7 +1779,7 @@
             </div>
             <div class="showcase-item fade-in">
                 <div class="showcase-image">
-                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=700&q=80" alt="Provence 4 bacs - Bois et metal">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=92&auto=format&fit=crop" alt="Provence 4 bacs - Bois et metal">
                 </div>
                 <div class="showcase-content">
                     <h3>Provence 4 bacs &mdash; Bois &amp; M&eacute;tal</h3>
@@ -1648,7 +1792,7 @@
             </div>
             <div class="showcase-item fade-in">
                 <div class="showcase-image">
-                    <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=700&q=80" alt="Elegance 2 bacs - Design ferme">
+                    <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&q=92&auto=format&fit=crop" alt="Elegance 2 bacs - Design ferme">
                 </div>
                 <div class="showcase-content">
                     <h3>&Eacute;l&eacute;gance 2 bacs &mdash; Design ferm&eacute;</h3>
@@ -1662,23 +1806,23 @@
         </div>
     </section>
 
-    <!-- PHOTO GALLERY -->
+    <!-- PHOTO GALLERY — bento grid -->
     <div class="gallery">
         <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=500&q=80" alt="Jardin moderne">
-            <div class="gallery-item-overlay"><span>Collection Armor</span></div>
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1000&q=92&auto=format&fit=crop&crop=entropy" alt="Entree de maison moderne">
+            <div class="gallery-item-overlay"><span>Collection Armor &mdash; Acier anthracite</span></div>
         </div>
         <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&q=80" alt="Entree de maison">
-            <div class="gallery-item-overlay"><span>Collection Bastide</span></div>
+            <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=92&auto=format&fit=crop" alt="Fabrication artisanale EFI">
+            <div class="gallery-item-overlay"><span>Fabriqu&eacute; &agrave; Cholet</span></div>
         </div>
         <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500&q=80" alt="Facade moderne">
-            <div class="gallery-item-overlay"><span>Collection Provence</span></div>
-        </div>
-        <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500&q=80" alt="Maison contemporaine">
+            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=92&auto=format&fit=crop&crop=right" alt="Facade contemporaine">
             <div class="gallery-item-overlay"><span>Collection &Eacute;l&eacute;gance</span></div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1000&q=92&auto=format&fit=crop&crop=bottom" alt="Jardin et exterieur soigne">
+            <div class="gallery-item-overlay"><span>Collection Provence &mdash; Bois &amp; m&eacute;tal</span></div>
         </div>
     </div>
 
