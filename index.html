@@ -1,0 +1,2475 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EFI Online | Habillages de conteneurs Made in France</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #2c3e50;
+            background: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        img { max-width: 100%; display: block; object-fit: cover; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        :root {
+            --efi-blue: #1a3a5c;
+            --efi-blue-light: #2a5a8c;
+            --efi-blue-bright: #3498db;
+            --efi-red: #c0392b;
+            --efi-red-hover: #e74c3c;
+            --efi-dark: #1a1a2e;
+            --efi-gray-100: #f7f8fa;
+            --efi-gray-200: #eef1f5;
+            --efi-gray-300: #d5dbe5;
+            --efi-gray-500: #7f8c9b;
+            --efi-gray-700: #4a5568;
+            --efi-white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            --shadow-xl: 0 20px 60px rgba(0,0,0,0.15);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+        }
+
+        /* ===== ANNOUNCEMENT BAR ===== */
+        .announcement-bar {
+            background: var(--efi-blue);
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        .announcement-bar span { color: #ffd700; font-weight: 700; }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding: 0 40px;
+            transition: box-shadow 0.3s;
+        }
+        .navbar.scrolled { box-shadow: var(--shadow-md); }
+        .navbar-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--efi-blue);
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--efi-blue);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 0.85rem;
+            letter-spacing: -0.5px;
+        }
+        .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+        .logo-text small { font-size: 0.6rem; font-weight: 500; color: var(--efi-gray-500); letter-spacing: 2px; text-transform: uppercase; }
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--efi-gray-700);
+            transition: color 0.2s;
+            position: relative;
+        }
+        .nav-links a:hover { color: var(--efi-blue); }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--efi-blue);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-actions { display: flex; align-items: center; gap: 16px; }
+        .nav-actions .btn-nav {
+            background: var(--efi-blue);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-actions .btn-nav:hover {
+            background: var(--efi-blue-light);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(26,58,92,0.3);
+        }
+        .nav-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--efi-gray-100);
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 1.1rem;
+        }
+        .nav-icon:hover { background: var(--efi-gray-200); }
+        .cart-badge { position: relative; }
+        .cart-badge::after {
+            content: '0';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: var(--efi-red);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            min-height: 92vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-bg-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(13,27,42,0.88) 0%, rgba(26,58,92,0.75) 50%, rgba(26,58,92,0.6) 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            color: #ffd700;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+        .hero h1 em { font-style: normal; color: var(--efi-blue-bright); }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.75);
+            max-width: 520px;
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+        .hero-ctas { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .btn-primary {
+            background: var(--efi-red);
+            color: white;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary:hover {
+            background: var(--efi-red-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(192,57,43,0.35);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-secondary:hover { border-color: white; background: rgba(255,255,255,0.08); }
+        .hero-visual { position: relative; display: flex; justify-content: center; align-items: center; }
+        .hero-product-card {
+            width: 100%;
+            max-width: 480px;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+        }
+        .hero-product-card img {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+        }
+        .hero-product-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+            padding: 40px 30px 30px;
+        }
+        .hero-product-overlay h3 { color: white; font-size: 1.2rem; margin-bottom: 4px; }
+        .hero-product-overlay p { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+        .hero-floating-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--efi-red);
+            color: white;
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.8rem;
+            box-shadow: 0 8px 25px rgba(192,57,43,0.4);
+        }
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+        .hero-stat .number { font-size: 2rem; font-weight: 800; color: white; }
+        .hero-stat .label { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+        /* ===== TRUST BAR ===== */
+        .trust-bar {
+            background: var(--efi-gray-100);
+            border-bottom: 1px solid var(--efi-gray-200);
+            padding: 20px 40px;
+        }
+        .trust-bar-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.88rem;
+            color: var(--efi-gray-700);
+            font-weight: 500;
+        }
+        .trust-item .icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ===== SECTION COMMON ===== */
+        .section { padding: 100px 40px; }
+        .section-header {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 60px;
+        }
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--efi-blue-bright);
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--efi-dark);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--efi-gray-500);
+            line-height: 1.7;
+        }
+
+        /* ===== COLLECTIONS ===== */
+        .collections { background: var(--efi-white); }
+        .collections-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px;
+        }
+        .collection-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid var(--efi-gray-200);
+            cursor: pointer;
+        }
+        .collection-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--efi-gray-300);
+        }
+        .collection-image {
+            aspect-ratio: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        .collection-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .collection-card:hover .collection-image img { transform: scale(1.06); }
+        .collection-tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            color: white;
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+        .collection-tag.best { background: var(--efi-red); }
+        .collection-tag.new { background: var(--efi-blue-bright); }
+        .collection-tag.eco { background: #27ae60; }
+        .collection-tag.premium { background: #2c2c44; }
+        .collection-stars {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+        .stars { color: #f1c40f; font-size: 0.8rem; }
+        .review-count { font-size: 0.75rem; color: var(--efi-gray-500); }
+        .collection-info { padding: 24px; }
+        .collection-info h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--efi-dark);
+            margin-bottom: 4px;
+        }
+        .collection-price {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--efi-blue);
+            margin-bottom: 12px;
+        }
+        .collection-price small { font-weight: 400; color: var(--efi-gray-500); font-size: 0.8rem; }
+        .collection-features { display: flex; flex-wrap: wrap; gap: 6px; }
+        .collection-features .feat {
+            font-size: 0.72rem;
+            background: var(--efi-gray-100);
+            padding: 4px 10px;
+            border-radius: 50px;
+            color: var(--efi-gray-700);
+            border: 1px solid var(--efi-gray-200);
+        }
+
+        /* ===== LIFESTYLE BANNER ===== */
+        .lifestyle-banner {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+        .lifestyle-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .lifestyle-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(26,58,92,0.9) 0%, rgba(26,58,92,0.4) 60%, transparent 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 80px;
+        }
+        .lifestyle-text { max-width: 520px; }
+        .lifestyle-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+        .lifestyle-text p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+        .btn-white {
+            background: white;
+            color: var(--efi-blue);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255,255,255,0.3);
+        }
+
+        /* ===== WHY EFI ===== */
+        .why-efi { background: var(--efi-gray-100); }
+        .why-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .why-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            transition: all 0.3s;
+            border: 1px solid var(--efi-gray-200);
+        }
+        .why-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        .why-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .why-icon.blue { background: rgba(52,152,219,0.1); }
+        .why-icon.red { background: rgba(192,57,43,0.1); }
+        .why-icon.green { background: rgba(39,174,96,0.1); }
+        .why-icon.gold { background: rgba(241,196,15,0.1); }
+        .why-icon.purple { background: rgba(142,68,173,0.1); }
+        .why-icon.navy { background: rgba(26,58,92,0.1); }
+        .why-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--efi-dark);
+            margin-bottom: 10px;
+        }
+        .why-card p {
+            font-size: 0.9rem;
+            color: var(--efi-gray-500);
+            line-height: 1.6;
+        }
+
+        /* ===== MADE IN FRANCE ===== */
+        .france-banner {
+            background: var(--efi-blue);
+            position: relative;
+            overflow: hidden;
+        }
+        .france-banner::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 6px;
+            background: #002395;
+        }
+        .france-banner::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 0; bottom: 0;
+            width: 6px;
+            background: #ED2939;
+        }
+        .france-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .france-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .france-text p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+        .france-flags {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+        }
+        .flag-stripe { width: 8px; height: 40px; border-radius: 4px; }
+        .flag-stripe.bleu { background: #002395; }
+        .flag-stripe.blanc { background: #ffffff; }
+        .flag-stripe.rouge { background: #ED2939; }
+        .france-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .france-stat {
+            text-align: center;
+            padding: 24px 16px;
+            background: rgba(255,255,255,0.08);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .france-stat .num { font-size: 2.2rem; font-weight: 800; color: white; line-height: 1; }
+        .france-stat .txt { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 6px; }
+        .france-visual { display: flex; justify-content: center; }
+        .france-image {
+            width: 100%;
+            max-width: 500px;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow-xl);
+        }
+        .france-image img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+        }
+        .france-image-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            padding: 30px 24px 24px;
+        }
+        .france-image-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #002395 33%, #ffffff 33%, #ffffff 66%, #ED2939 66%);
+        }
+        .france-image-label { color: white; font-weight: 700; font-size: 1.1rem; }
+        .france-image-sublabel { color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-top: 2px; }
+        .france-certifs {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .certif-badge {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 50px;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* ===== PRODUCT SHOWCASE ===== */
+        .product-showcase { background: white; }
+        .showcase-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+        .showcase-item {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid var(--efi-gray-200);
+            transition: all 0.3s;
+            background: white;
+        }
+        .showcase-item:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+        .showcase-image {
+            aspect-ratio: 16/10;
+            overflow: hidden;
+        }
+        .showcase-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .showcase-item:hover .showcase-image img { transform: scale(1.04); }
+        .showcase-content { padding: 28px; }
+        .showcase-content h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--efi-dark);
+            margin-bottom: 8px;
+        }
+        .showcase-content p {
+            color: var(--efi-gray-500);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .showcase-content .price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .price-row .price { font-size: 1.3rem; font-weight: 800; color: var(--efi-blue); }
+        .price-row .price small { font-size: 0.8rem; font-weight: 400; color: var(--efi-gray-500); }
+        .btn-sm {
+            background: var(--efi-blue);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-sm:hover { background: var(--efi-blue-light); box-shadow: 0 4px 15px rgba(26,58,92,0.3); }
+
+        /* ===== GALLERY ===== */
+        .gallery {
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+        .gallery-item {
+            aspect-ratio: 1;
+            overflow: hidden;
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(26,58,92,0.0);
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery-item:hover .gallery-item-overlay { background: rgba(26,58,92,0.5); }
+        .gallery-item-overlay span {
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s;
+        }
+        .gallery-item:hover .gallery-item-overlay span { opacity: 1; transform: translateY(0); }
+
+        /* ===== COMPARISON TABLE ===== */
+        .comparison { background: var(--efi-gray-100); }
+        .comparison-table-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        .comparison-table thead th {
+            background: var(--efi-blue);
+            color: white;
+            padding: 20px 24px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .comparison-table thead th:first-child { text-align: left; background: var(--efi-dark); }
+        .comparison-table tbody td {
+            padding: 16px 24px;
+            text-align: center;
+            font-size: 0.88rem;
+            border-bottom: 1px solid var(--efi-gray-200);
+            color: var(--efi-gray-700);
+        }
+        .comparison-table tbody td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--efi-dark);
+            background: var(--efi-gray-100);
+            white-space: nowrap;
+        }
+        .comparison-table tbody tr:last-child td { border-bottom: none; }
+        .comparison-table tbody tr:hover td { background: rgba(52,152,219,0.04); }
+        .comparison-table tbody tr:hover td:first-child { background: rgba(52,152,219,0.08); }
+        .check { color: #27ae60; font-weight: 700; }
+        .cross { color: #e74c3c; }
+
+        /* ===== CONFIGURATOR CTA ===== */
+        /* ===== REVIEWS ===== */
+        .reviews { background: white; }
+        .reviews-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .review-card {
+            background: var(--efi-gray-100);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        .review-card:hover { border-color: var(--efi-gray-300); box-shadow: var(--shadow-sm); }
+        .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        .review-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+        }
+        .review-avatar.av1 { background: var(--efi-blue); }
+        .review-avatar.av2 { background: var(--efi-red); }
+        .review-avatar.av3 { background: #27ae60; }
+        .review-avatar.av4 { background: #8e44ad; }
+        .review-avatar.av5 { background: #e67e22; }
+        .review-avatar.av6 { background: #2c3e50; }
+        .review-meta h4 { font-size: 0.95rem; font-weight: 600; }
+        .review-meta .date { font-size: 0.75rem; color: var(--efi-gray-500); }
+        .review-stars { color: #f1c40f; font-size: 0.85rem; margin-bottom: 12px; }
+        .review-text { font-size: 0.9rem; color: var(--efi-gray-700); line-height: 1.6; font-style: italic; }
+        .review-product { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--efi-gray-200); font-size: 0.78rem; color: var(--efi-gray-500); }
+        .review-product strong { color: var(--efi-blue); }
+        .reviews-summary {
+            max-width: 1400px;
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            padding: 32px;
+            background: var(--efi-gray-100);
+            border-radius: var(--radius-lg);
+        }
+        .reviews-big-score .score { font-size: 3.5rem; font-weight: 800; color: var(--efi-dark); }
+        .reviews-big-score .out-of { font-size: 1rem; color: var(--efi-gray-500); }
+        .reviews-big-score .total { font-size: 0.85rem; color: var(--efi-gray-500); margin-top: 4px; }
+        .reviews-bars { flex: 1; max-width: 400px; }
+        .review-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+        .review-bar-label { font-size: 0.8rem; color: var(--efi-gray-500); width: 50px; text-align: right; }
+        .review-bar { flex: 1; height: 8px; background: var(--efi-gray-200); border-radius: 4px; overflow: hidden; }
+        .review-bar-fill { height: 100%; background: #f1c40f; border-radius: 4px; }
+        .review-bar-count { font-size: 0.75rem; color: var(--efi-gray-500); width: 30px; }
+
+        /* ===== FAQ ===== */
+        .faq { background: var(--efi-gray-100); }
+        .faq-list { max-width: 800px; margin: 0 auto; }
+        .faq-item {
+            background: white;
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            border: 1px solid var(--efi-gray-200);
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 20px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--efi-dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .faq-question:hover { background: var(--efi-gray-100); }
+        .faq-question .toggle { font-size: 1.3rem; color: var(--efi-blue); transition: transform 0.3s; font-weight: 300; }
+        .faq-item.open .faq-question .toggle { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+        .faq-item.open .faq-answer { max-height: 300px; padding: 0 24px 20px; }
+        .faq-answer p { font-size: 0.9rem; color: var(--efi-gray-500); line-height: 1.7; }
+
+        /* ===== NEWSLETTER ===== */
+        .newsletter { background: white; padding: 80px 40px; }
+        .newsletter-inner { max-width: 600px; margin: 0 auto; text-align: center; }
+        .newsletter-inner h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--efi-dark); margin-bottom: 12px; }
+        .newsletter-inner p { color: var(--efi-gray-500); font-size: 0.95rem; margin-bottom: 28px; }
+        .newsletter-form { display: flex; gap: 12px; max-width: 480px; margin: 0 auto; }
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid var(--efi-gray-200);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+        .newsletter-form input:focus { border-color: var(--efi-blue); }
+        .newsletter-form button {
+            background: var(--efi-blue);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .newsletter-form button:hover { background: var(--efi-blue-light); }
+
+        /* ===== FOOTER ===== */
+        .footer { background: var(--efi-dark); color: white; padding: 80px 40px 40px; }
+        .footer-inner { max-width: 1400px; margin: 0 auto; }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .footer-brand .logo { color: white; margin-bottom: 16px; }
+        .footer-brand .logo .logo-icon { background: rgba(255,255,255,0.15); }
+        .footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.88rem; line-height: 1.7; max-width: 300px; }
+        .footer-col h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            color: rgba(255,255,255,0.9);
+        }
+        .footer-col a {
+            display: block;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.88rem;
+            margin-bottom: 10px;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: white; }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .footer-bottom p { color: rgba(255,255,255,0.4); font-size: 0.8rem; }
+        .footer-payments { display: flex; gap: 8px; }
+        .payment-icon {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.6);
+            font-weight: 600;
+        }
+        .footer-flag { display: flex; gap: 0; border-radius: 4px; overflow: hidden; margin-top: 16px; }
+        .footer-flag span { width: 24px; height: 16px; }
+        .footer-flag .fb { background: #002395; }
+        .footer-flag .fw { background: #ffffff; }
+        .footer-flag .fr { background: #ED2939; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-content { grid-template-columns: 1fr; gap: 40px; }
+            .hero-visual { order: -1; }
+            .hero h1 { font-size: 2.8rem; }
+            .collections-grid { grid-template-columns: repeat(2, 1fr); }
+            .why-grid { grid-template-columns: repeat(2, 1fr); }
+            .france-inner { grid-template-columns: 1fr; }
+            .showcase-grid { grid-template-columns: 1fr; }
+            .reviews-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery { grid-template-columns: repeat(2, 1fr); }
+            .lifestyle-overlay { padding: 0 40px; }
+        }
+        @media (max-width: 768px) {
+            .section { padding: 60px 20px; }
+            .hero-content { padding: 40px 20px; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero-stats { flex-direction: column; gap: 20px; }
+            .collections-grid { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .trust-bar-inner { justify-content: center; }
+            .france-stats { grid-template-columns: 1fr; }
+            .section-title { font-size: 2rem; }
+            .newsletter-form { flex-direction: column; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .reviews-summary { flex-direction: column; }
+            .gallery { grid-template-columns: repeat(2, 1fr); }
+            .lifestyle-overlay { padding: 0 20px; }
+            .lifestyle-text h2 { font-size: 1.8rem; }
+        }
+
+        /* ===== CONFIGURATEUR INTERACTIF ===== */
+        .cfg-section { background: var(--efi-gray-100); }
+        .cfg-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px;
+            align-items: start;
+        }
+        .cfg-panel {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .cfg-step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .cfg-step-num {
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            background: var(--efi-blue);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .cfg-step-title {
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: var(--efi-dark);
+        }
+        .cfg-collections-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .cfg-col-card {
+            border: 2px solid var(--efi-gray-200);
+            border-radius: var(--radius-md);
+            padding: 14px 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .cfg-col-card:hover { border-color: var(--efi-blue-bright); background: var(--efi-gray-100); }
+        .cfg-col-card.active { border-color: var(--efi-blue); background: rgba(26,58,92,0.05); }
+        .cfg-col-icon { font-size: 1.4rem; margin-bottom: 5px; }
+        .cfg-col-name { font-weight: 700; font-size: 0.88rem; color: var(--efi-dark); }
+        .cfg-col-mat { font-size: 0.72rem; color: var(--efi-gray-500); margin: 2px 0; }
+        .cfg-col-price { font-size: 0.78rem; font-weight: 600; color: var(--efi-blue); }
+        .cfg-bacs-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .cfg-bac-btn {
+            border: 2px solid var(--efi-gray-200);
+            border-radius: var(--radius-md);
+            padding: 10px 4px;
+            cursor: pointer;
+            background: white;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 0.92rem;
+            color: var(--efi-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            transition: all 0.2s;
+        }
+        .cfg-bac-btn small { font-size: 0.62rem; font-weight: 500; color: var(--efi-gray-500); }
+        .cfg-bac-btn:hover { border-color: var(--efi-blue-bright); }
+        .cfg-bac-btn.active { border-color: var(--efi-blue); background: var(--efi-blue); color: white; }
+        .cfg-bac-btn.active small { color: rgba(255,255,255,0.75); }
+        .cfg-colors { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+        .cfg-color-swatch {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+            position: relative;
+            outline: none;
+        }
+        .cfg-color-swatch:hover { transform: scale(1.18); }
+        .cfg-color-swatch.active { border-color: var(--efi-blue); transform: scale(1.1); }
+        .cfg-color-swatch.active::after {
+            content: '✓';
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem; font-weight: 700;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+        }
+        .cfg-options-list { display: flex; flex-direction: column; gap: 8px; }
+        .cfg-option-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px;
+            border: 2px solid var(--efi-gray-200);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+        .cfg-option-item:hover { border-color: var(--efi-blue-bright); background: var(--efi-gray-100); }
+        .cfg-option-item.checked { border-color: var(--efi-blue); background: rgba(26,58,92,0.04); }
+        .cfg-option-item input[type=checkbox] { display: none; }
+        .cfg-option-info { display: flex; align-items: center; gap: 10px; flex: 1; }
+        .cfg-option-icon { font-size: 1.15rem; flex-shrink: 0; }
+        .cfg-option-name { font-weight: 600; font-size: 0.82rem; color: var(--efi-dark); }
+        .cfg-option-desc { font-size: 0.72rem; color: var(--efi-gray-500); }
+        .cfg-option-check {
+            width: 20px; height: 20px;
+            border: 2px solid var(--efi-gray-300);
+            border-radius: 5px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.7rem;
+            color: transparent;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+        .cfg-option-item.checked .cfg-option-check {
+            background: var(--efi-blue);
+            border-color: var(--efi-blue);
+            color: white;
+        }
+        .cfg-option-price { font-weight: 700; font-size: 0.82rem; color: var(--efi-blue); white-space: nowrap; }
+
+        /* Preview panel */
+        .cfg-preview-panel {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            position: sticky;
+            top: 88px;
+        }
+        .cfg-preview-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--efi-gray-500);
+        }
+        .cfg-preview-canvas {
+            background: linear-gradient(160deg, #e8edf5 0%, #f0f4f8 100%);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            aspect-ratio: 5/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cfg-preview-canvas svg { width: 100%; height: 100%; }
+        .cfg-preview-info { display: flex; flex-direction: column; gap: 0; }
+        .cfg-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+            padding: 7px 0;
+            border-bottom: 1px solid var(--efi-gray-200);
+        }
+        .cfg-info-row:last-child { border-bottom: none; }
+        .cfg-info-label { color: var(--efi-gray-500); }
+        .cfg-info-value { font-weight: 600; color: var(--efi-dark); }
+        .cfg-price-block {
+            background: var(--efi-blue);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            text-align: center;
+        }
+        .cfg-price-label {
+            font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase;
+            color: rgba(255,255,255,0.55); margin-bottom: 4px;
+        }
+        .cfg-price-value { font-size: 2.2rem; font-weight: 800; color: white; line-height: 1; }
+        .cfg-price-note { font-size: 0.7rem; color: rgba(255,255,255,0.55); margin-top: 5px; }
+        .cfg-actions { display: flex; flex-direction: column; gap: 10px; }
+        .cfg-btn-primary {
+            background: var(--efi-red); color: white; border: none;
+            padding: 15px; border-radius: 50px;
+            font-size: 0.95rem; font-weight: 700; cursor: pointer;
+            transition: all 0.3s; font-family: 'Inter', sans-serif;
+        }
+        .cfg-btn-primary:hover { background: var(--efi-red-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(192,57,43,0.35); }
+        .cfg-btn-secondary {
+            background: transparent; color: var(--efi-blue);
+            border: 2px solid var(--efi-gray-300); padding: 13px; border-radius: 50px;
+            font-size: 0.88rem; font-weight: 600; cursor: pointer;
+            transition: all 0.3s; font-family: 'Inter', sans-serif;
+        }
+        .cfg-btn-secondary:hover { border-color: var(--efi-blue); background: var(--efi-gray-100); }
+
+        @media (max-width: 1024px) {
+            .cfg-wrapper { grid-template-columns: 1fr; }
+            .cfg-preview-panel { position: static; }
+        }
+        @media (max-width: 768px) {
+            .cfg-collections-grid { grid-template-columns: 1fr 1fr; }
+            .cfg-bacs-selector { grid-template-columns: repeat(4, 1fr); }
+            .cfg-panel { padding: 20px; }
+            .cfg-preview-panel { padding: 20px; }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .slide-in-left.visible { opacity: 1; transform: translateX(0); }
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .slide-in-right.visible { opacity: 1; transform: translateX(0); }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            background: var(--efi-blue);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+            z-index: 999;
+            box-shadow: var(--shadow-md);
+        }
+        .back-to-top.show { opacity: 1; pointer-events: all; }
+        .back-to-top:hover { background: var(--efi-blue-light); transform: translateY(-3px); }
+    </style>
+</head>
+<body>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        Livraison offerte en France M&eacute;tropolitaine &mdash; <span>Fabrication 100% fran&ccedil;aise</span> &mdash; Garantie 10 ans
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="logo">
+                <div class="logo-icon">EFI</div>
+                <div class="logo-text">
+                    EFI Online
+                    <small>Groupe EFI</small>
+                </div>
+            </a>
+            <div class="nav-links">
+                <a href="#collections">Collections</a>
+                <a href="#pourquoi">Pourquoi EFI</a>
+                <a href="#made-in-france">Made in France</a>
+                <a href="#configurateur">Configurateur</a>
+                <a href="#avis">Avis clients</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <div class="nav-actions">
+                <div class="nav-icon">&#128269;</div>
+                <div class="nav-icon">&#128100;</div>
+                <div class="nav-icon cart-badge">&#128722;</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80" alt="Maison moderne avec entree elegante">
+            <div class="hero-bg-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    &#127467;&#127479; Fabriqu&eacute; en France &bull; Cholet (49)
+                </div>
+                <h1>L'habillage de conteneurs <em>haut de gamme</em></h1>
+                <p class="hero-subtitle">
+                    Transformez votre entr&eacute;e avec nos coffres &agrave; poubelles fabriqu&eacute;s dans nos ateliers de Cholet. M&eacute;tal et bois d'excellence, con&ccedil;us pour durer et sublimer votre ext&eacute;rieur.
+                </p>
+                <div class="hero-ctas">
+                    <button class="btn-primary">D&eacute;couvrir nos collections &#8594;</button>
+                    <button class="btn-secondary">&#9654; Voir la vid&eacute;o</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="number">100+</div>
+                        <div class="label">Collaborateurs</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="number">9 000</div>
+                        <div class="label">m&sup2; d'atelier</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="number">15 ans</div>
+                        <div class="label">d'expertise m&eacute;tal &amp; bois</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-product-card">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Collection Armor - Coffre a poubelles acier">
+                    <div class="hero-product-overlay">
+                        <h3>Collection Armor &mdash; 2 bacs</h3>
+                        <p>&Agrave; partir de 349 &euro; &bull; Acier galvanis&eacute;</p>
+                    </div>
+                    <div class="hero-floating-badge">&#127467;&#127479; Made in France</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+        <div class="trust-bar-inner">
+            <div class="trust-item">
+                <div class="icon">&#127467;&#127479;</div>
+                <span>Fabriqu&eacute; en <strong>France</strong></span>
+            </div>
+            <div class="trust-item">
+                <div class="icon">&#128666;</div>
+                <span>Livraison <strong>gratuite</strong></span>
+            </div>
+            <div class="trust-item">
+                <div class="icon">&#128274;</div>
+                <span>Garantie <strong>10 ans</strong></span>
+            </div>
+            <div class="trust-item">
+                <div class="icon">&#11088;</div>
+                <span><strong>4.9/5</strong> &mdash; 1 240 avis</span>
+            </div>
+            <div class="trust-item">
+                <div class="icon">&#128222;</div>
+                <span>SAV <strong>8h-20h</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- COLLECTIONS -->
+    <section class="section collections" id="collections">
+        <div class="section-header fade-in">
+            <div class="section-label">Nos collections</div>
+            <h2 class="section-title">Des habillages pour tous les styles</h2>
+            <p class="section-subtitle">Quatre collections con&ccedil;ues et fabriqu&eacute;es dans nos ateliers de Cholet, pour s'adapter &agrave; chaque fa&ccedil;ade et chaque envie.</p>
+        </div>
+        <div class="collections-grid">
+            <!-- Armor -->
+            <div class="collection-card fade-in">
+                <div class="collection-image">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=500&q=80" alt="Collection Armor - Acier galvanise">
+                    <div class="collection-tag best">Best-seller</div>
+                </div>
+                <div class="collection-info">
+                    <div class="collection-stars">
+                        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        <span class="review-count">412 avis</span>
+                    </div>
+                    <h3>Collection Armor</h3>
+                    <div class="collection-price">&Agrave; partir de 349 &euro; <small>/ bo&icirc;te individuelle</small></div>
+                    <div class="collection-features">
+                        <span class="feat">Acier galvanis&eacute;</span>
+                        <span class="feat">1 &agrave; 6 bacs</span>
+                        <span class="feat">120L / 240L</span>
+                        <span class="feat">Toit v&eacute;g&eacute;tal</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Bastide -->
+            <div class="collection-card fade-in">
+                <div class="collection-image">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500&q=80" alt="Collection Bastide - Aluminium">
+                    <div class="collection-tag new">Nouveau</div>
+                </div>
+                <div class="collection-info">
+                    <div class="collection-stars">
+                        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        <span class="review-count">87 avis</span>
+                    </div>
+                    <h3>Collection Bastide</h3>
+                    <div class="collection-price">&Agrave; partir de 599 &euro; <small>/ bo&icirc;te individuelle</small></div>
+                    <div class="collection-features">
+                        <span class="feat">Aluminium</span>
+                        <span class="feat">1 &agrave; 6 bacs</span>
+                        <span class="feat">Taille unique</span>
+                        <span class="feat">Ultra l&eacute;ger</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Provence -->
+            <div class="collection-card fade-in">
+                <div class="collection-image">
+                    <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=500&q=80" alt="Collection Provence - Bois et metal">
+                    <div class="collection-tag eco">&Eacute;co-con&ccedil;u</div>
+                </div>
+                <div class="collection-info">
+                    <div class="collection-stars">
+                        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        <span class="review-count">156 avis</span>
+                    </div>
+                    <h3>Collection Provence</h3>
+                    <div class="collection-price">&Agrave; partir de 899 &euro; <small>/ bo&icirc;te individuelle</small></div>
+                    <div class="collection-features">
+                        <span class="feat">Bois &amp; m&eacute;tal</span>
+                        <span class="feat">1 &agrave; 6 bacs</span>
+                        <span class="feat">120L / 240L</span>
+                        <span class="feat">Bois fran&ccedil;ais</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Elegance -->
+            <div class="collection-card fade-in">
+                <div class="collection-image">
+                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500&q=80" alt="Collection Elegance - Premium">
+                    <div class="collection-tag premium">Premium</div>
+                </div>
+                <div class="collection-info">
+                    <div class="collection-stars">
+                        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                        <span class="review-count">64 avis</span>
+                    </div>
+                    <h3>Collection &Eacute;l&eacute;gance</h3>
+                    <div class="collection-price">&Agrave; partir de 799 &euro; <small>/ bo&icirc;te individuelle</small></div>
+                    <div class="collection-features">
+                        <span class="feat">Acier int&eacute;gral</span>
+                        <span class="feat">1 &agrave; 6 bacs</span>
+                        <span class="feat">Design ferm&eacute;</span>
+                        <span class="feat">Verrouillable</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIFESTYLE BANNER -->
+    <div class="lifestyle-banner">
+        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1920&q=80" alt="Maison moderne avec jardin soigne">
+        <div class="lifestyle-overlay">
+            <div class="lifestyle-text fade-in">
+                <h2>La premi&egrave;re impression compte</h2>
+                <p>Cachez vos conteneurs disgracieux et transformez votre entr&eacute;e en un espace &eacute;l&eacute;gant. Nos habillages s'int&egrave;grent parfaitement &agrave; votre architecture.</p>
+                <button class="btn-white">D&eacute;couvrir les tailles &#8594;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHY EFI -->
+    <section class="section why-efi" id="pourquoi">
+        <div class="section-header fade-in">
+            <div class="section-label">Pourquoi choisir EFI Online</div>
+            <h2 class="section-title">La qualit&eacute; fran&ccedil;aise &agrave; votre porte</h2>
+            <p class="section-subtitle">Un savoir-faire industriel de 15 ans au service de votre ext&eacute;rieur.</p>
+        </div>
+        <div class="why-grid">
+            <div class="why-card fade-in">
+                <div class="why-icon blue">&#127467;&#127479;</div>
+                <h3>100% Made in France</h3>
+                <p>Con&ccedil;u, fabriqu&eacute; et exp&eacute;di&eacute; depuis nos ateliers de Cholet (Maine-et-Loire). Aucune sous-traitance &agrave; l'&eacute;tranger.</p>
+            </div>
+            <div class="why-card fade-in">
+                <div class="why-icon red">&#128295;</div>
+                <h3>Savoir-faire industriel</h3>
+                <p>D&eacute;coupe laser, pliage, soudure, traitement de surface : nous ma&icirc;trisons chaque &eacute;tape dans nos 9 000 m&sup2; d'atelier.</p>
+            </div>
+            <div class="why-card fade-in">
+                <div class="why-icon green">&#127793;</div>
+                <h3>Toit v&eacute;g&eacute;talis&eacute;</h3>
+                <p>Optez pour notre toit v&eacute;g&eacute;talis&eacute; en option et apportez une touche de verdure &agrave; votre entr&eacute;e. Beau et &eacute;cologique.</p>
+            </div>
+            <div class="why-card fade-in">
+                <div class="why-icon gold">&#128274;</div>
+                <h3>Serrure &amp; s&eacute;curit&eacute;</h3>
+                <p>Prot&eacute;gez vos conteneurs des acc&egrave;s non autoris&eacute;s gr&acirc;ce &agrave; notre syst&egrave;me de verrouillage int&eacute;gr&eacute;.</p>
+            </div>
+            <div class="why-card fade-in">
+                <div class="why-icon purple">&#128666;</div>
+                <h3>Livr&eacute; pr&eacute;-assembl&eacute;</h3>
+                <p>Nos coffres arrivent pr&eacute;-assembl&eacute;s. Montage final en 30 &agrave; 45 minutes, sans outillage sp&eacute;cialis&eacute;.</p>
+            </div>
+            <div class="why-card fade-in">
+                <div class="why-icon navy">&#128171;</div>
+                <h3>Garantie 10 ans</h3>
+                <p>Nous garantissons nos produits 10 ans. Notre SAV fran&ccedil;ais est disponible 7j/7 de 8h &agrave; 20h.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MADE IN FRANCE -->
+    <section class="france-banner" id="made-in-france">
+        <div class="france-inner">
+            <div class="france-text slide-in-left">
+                <div class="france-flags">
+                    <div class="flag-stripe bleu"></div>
+                    <div class="flag-stripe blanc"></div>
+                    <div class="flag-stripe rouge"></div>
+                </div>
+                <h2>Fabriqu&eacute; avec fiert&eacute; dans nos ateliers de Cholet</h2>
+                <p>
+                    Depuis 2010, le Groupe EFI r&eacute;unit des experts du m&eacute;tal et du bois dans ses ateliers du Maine-et-Loire. Chaque coffre &agrave; poubelles est le fruit d'un savoir-faire artisanal et industriel unique en France.
+                </p>
+                <p>
+                    De la d&eacute;coupe laser &agrave; la finition par thermolaquage, chaque &eacute;tape est r&eacute;alis&eacute;e dans nos locaux par nos 100 collaborateurs. Nous ne sous-traitons rien.
+                </p>
+                <div class="france-stats">
+                    <div class="france-stat">
+                        <div class="num">2010</div>
+                        <div class="txt">Ann&eacute;e de cr&eacute;ation</div>
+                    </div>
+                    <div class="france-stat">
+                        <div class="num">100</div>
+                        <div class="txt">Collaborateurs</div>
+                    </div>
+                    <div class="france-stat">
+                        <div class="num">9 000</div>
+                        <div class="txt">m&sup2; d'atelier</div>
+                    </div>
+                </div>
+            </div>
+            <div class="france-visual slide-in-right">
+                <div class="france-image">
+                    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=700&q=80" alt="Ateliers EFI - Travail du metal">
+                    <div class="france-image-overlay">
+                        <div class="france-image-label">Ateliers EFI &mdash; Cholet</div>
+                        <div class="france-image-sublabel">53 Rue Yvette Cauchois, 49300 Cholet</div>
+                        <div class="france-certifs">
+                            <span class="certif-badge">Origine France</span>
+                            <span class="certif-badge">ISO 9001</span>
+                            <span class="certif-badge">&Eacute;co-responsable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT SHOWCASE -->
+    <section class="section product-showcase">
+        <div class="section-header fade-in">
+            <div class="section-label">Nos best-sellers</div>
+            <h2 class="section-title">Nos configurations les plus populaires</h2>
+            <p class="section-subtitle">Du coffre individuel au set de 4 poubelles, trouvez la solution id&eacute;ale pour votre entr&eacute;e.</p>
+        </div>
+        <div class="showcase-grid">
+            <div class="showcase-item fade-in">
+                <div class="showcase-image">
+                    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=700&q=80" alt="Armor 2 bacs - Best-seller">
+                </div>
+                <div class="showcase-content">
+                    <h3>Armor 2 bacs &mdash; 240L</h3>
+                    <p>Notre best-seller. Acier galvanis&eacute; &agrave; chaud, thermolaquage RAL7016 anthracite. Toit v&eacute;g&eacute;tal inclus.</p>
+                    <div class="price-row">
+                        <span class="price">698 &euro; <small>le set</small></span>
+                        <button class="btn-sm">Voir le produit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-item fade-in">
+                <div class="showcase-image">
+                    <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=700&q=80" alt="Bastide 3 bacs - Aluminium">
+                </div>
+                <div class="showcase-content">
+                    <h3>Bastide 3 bacs &mdash; Aluminium</h3>
+                    <p>L&eacute;g&egrave;ret&eacute; et &eacute;l&eacute;gance. Aluminium avec rev&ecirc;tement poudre int&eacute;rieur et ext&eacute;rieur. Pieds r&eacute;glables.</p>
+                    <div class="price-row">
+                        <span class="price">1 697 &euro; <small>le set</small></span>
+                        <button class="btn-sm">Voir le produit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-item fade-in">
+                <div class="showcase-image">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=700&q=80" alt="Provence 4 bacs - Bois et metal">
+                </div>
+                <div class="showcase-content">
+                    <h3>Provence 4 bacs &mdash; Bois &amp; M&eacute;tal</h3>
+                    <p>Fa&ccedil;ade en ch&ecirc;ne fran&ccedil;ais massif sur structure acier. Le mariage parfait du naturel et de la robustesse.</p>
+                    <div class="price-row">
+                        <span class="price">3 396 &euro; <small>le set</small></span>
+                        <button class="btn-sm">Voir le produit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-item fade-in">
+                <div class="showcase-image">
+                    <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=700&q=80" alt="Elegance 2 bacs - Design ferme">
+                </div>
+                <div class="showcase-content">
+                    <h3>&Eacute;l&eacute;gance 2 bacs &mdash; Design ferm&eacute;</h3>
+                    <p>Le nec plus ultra. Acier int&eacute;gral avec serrure &agrave; cl&eacute;, amortisseurs &agrave; gaz et finition impeccable.</p>
+                    <div class="price-row">
+                        <span class="price">1 598 &euro; <small>le set</small></span>
+                        <button class="btn-sm">Voir le produit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHOTO GALLERY -->
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=500&q=80" alt="Jardin moderne">
+            <div class="gallery-item-overlay"><span>Collection Armor</span></div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&q=80" alt="Entree de maison">
+            <div class="gallery-item-overlay"><span>Collection Bastide</span></div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500&q=80" alt="Facade moderne">
+            <div class="gallery-item-overlay"><span>Collection Provence</span></div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500&q=80" alt="Maison contemporaine">
+            <div class="gallery-item-overlay"><span>Collection &Eacute;l&eacute;gance</span></div>
+        </div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <section class="section comparison" id="comparaison">
+        <div class="section-header fade-in">
+            <div class="section-label">Comparez nos collections</div>
+            <h2 class="section-title">Le mod&egrave;le adapt&eacute; &agrave; chaque entr&eacute;e</h2>
+            <p class="section-subtitle">Retrouvez toutes les caract&eacute;ristiques de nos 4 collections pour faire le meilleur choix.</p>
+        </div>
+        <div class="comparison-table-wrap fade-in">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Caract&eacute;ristique</th>
+                        <th>Armor</th>
+                        <th>Bastide</th>
+                        <th>Provence</th>
+                        <th>&Eacute;l&eacute;gance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Mat&eacute;riau</td><td>Acier galvanis&eacute;</td><td>Aluminium</td><td>Bois &amp; acier</td><td>Acier int&eacute;gral</td></tr>
+                    <tr><td>Rev&ecirc;tement poudre</td><td>Ext&eacute;rieur</td><td>Int. &amp; ext.</td><td>Int. &amp; ext.</td><td>Int. &amp; ext.</td></tr>
+                    <tr><td>Tailles de poubelles</td><td>120L / 240L</td><td>Taille unique</td><td>120L / 240L</td><td>120L / 240L</td></tr>
+                    <tr><td>Pieds r&eacute;glables</td><td class="cross">&#10007;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td></tr>
+                    <tr><td>Toit v&eacute;g&eacute;talis&eacute;</td><td>Optionnel</td><td class="cross">&#10007;</td><td>Optionnel</td><td>Optionnel</td></tr>
+                    <tr><td>Serrure &agrave; cl&eacute;</td><td>Optionnel</td><td class="cross">&#10007;</td><td class="check">&#10003;</td><td class="check">&#10003;</td></tr>
+                    <tr><td>Amortisseur &agrave; gaz</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td></tr>
+                    <tr><td>Nombre de couleurs</td><td>8</td><td>4</td><td>6</td><td>5</td></tr>
+                    <tr><td>Temps de montage</td><td>30 min</td><td>15 min</td><td>45 min</td><td>45 min</td></tr>
+                    <tr><td>Largeur / bo&icirc;te</td><td>60 cm</td><td>70 cm</td><td>74 cm</td><td>74 cm</td></tr>
+                    <tr><td>&Agrave; partir de</td><td><strong>349 &euro;</strong></td><td><strong>599 &euro;</strong></td><td><strong>899 &euro;</strong></td><td><strong>799 &euro;</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- CONFIGURATOR CTA -->
+    <!-- CONFIGURATEUR INTERACTIF -->
+    <section class="section cfg-section" id="configurateur">
+        <div class="section-header fade-in">
+            <div class="section-label">Configurateur en ligne</div>
+            <h2 class="section-title">Cr&eacute;ez votre habillage sur mesure</h2>
+            <p class="section-subtitle">Personnalisez votre coffre &eacute;tape par &eacute;tape et obtenez un devis instantan&eacute;.</p>
+        </div>
+        <div class="cfg-wrapper fade-in">
+
+            <!-- LEFT: Options panel -->
+            <div class="cfg-panel">
+
+                <!-- Step 1 -->
+                <div class="cfg-step">
+                    <div class="cfg-step-header">
+                        <span class="cfg-step-num">1</span>
+                        <span class="cfg-step-title">Choisissez votre collection</span>
+                    </div>
+                    <div class="cfg-collections-grid">
+                        <div class="cfg-col-card active" data-collection="armor">
+                            <div class="cfg-col-icon">&#9874;</div>
+                            <div class="cfg-col-name">Armor</div>
+                            <div class="cfg-col-mat">Acier galvanis&eacute;</div>
+                            <div class="cfg-col-price">d&egrave;s 349 &euro;</div>
+                        </div>
+                        <div class="cfg-col-card" data-collection="bastide">
+                            <div class="cfg-col-icon">&#10024;</div>
+                            <div class="cfg-col-name">Bastide</div>
+                            <div class="cfg-col-mat">Aluminium</div>
+                            <div class="cfg-col-price">d&egrave;s 599 &euro;</div>
+                        </div>
+                        <div class="cfg-col-card" data-collection="provence">
+                            <div class="cfg-col-icon">&#127807;</div>
+                            <div class="cfg-col-name">Provence</div>
+                            <div class="cfg-col-mat">Bois &amp; m&eacute;tal</div>
+                            <div class="cfg-col-price">d&egrave;s 899 &euro;</div>
+                        </div>
+                        <div class="cfg-col-card" data-collection="elegance">
+                            <div class="cfg-col-icon">&#128142;</div>
+                            <div class="cfg-col-name">&Eacute;l&eacute;gance</div>
+                            <div class="cfg-col-mat">Acier int&eacute;gral</div>
+                            <div class="cfg-col-price">d&egrave;s 799 &euro;</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="cfg-step">
+                    <div class="cfg-step-header">
+                        <span class="cfg-step-num">2</span>
+                        <span class="cfg-step-title">Nombre de bacs</span>
+                    </div>
+                    <div class="cfg-bacs-selector">
+                        <button class="cfg-bac-btn active" data-bacs="1">1 bac<small>Individuel</small></button>
+                        <button class="cfg-bac-btn" data-bacs="2">2 bacs<small>Duo</small></button>
+                        <button class="cfg-bac-btn" data-bacs="3">3 bacs<small>Trio</small></button>
+                        <button class="cfg-bac-btn" data-bacs="4">4 bacs<small>Famille</small></button>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="cfg-step">
+                    <div class="cfg-step-header">
+                        <span class="cfg-step-num">3</span>
+                        <span class="cfg-step-title">Coloris &mdash; <span id="cfg-color-name">Anthracite</span></span>
+                    </div>
+                    <div class="cfg-colors" id="cfg-colors-container"></div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="cfg-step">
+                    <div class="cfg-step-header">
+                        <span class="cfg-step-num">4</span>
+                        <span class="cfg-step-title">Options suppl&eacute;mentaires</span>
+                    </div>
+                    <div class="cfg-options-list">
+                        <label class="cfg-option-item">
+                            <input type="checkbox" class="cfg-option-checkbox" data-price="89" id="opt-toit">
+                            <div class="cfg-option-info">
+                                <span class="cfg-option-icon">&#127807;</span>
+                                <div>
+                                    <div class="cfg-option-name">Toit v&eacute;g&eacute;tal</div>
+                                    <div class="cfg-option-desc">S&eacute;dum r&eacute;sistant, entretien minimal</div>
+                                </div>
+                            </div>
+                            <div class="cfg-option-check">&#10003;</div>
+                            <span class="cfg-option-price">+89 &euro;</span>
+                        </label>
+                        <label class="cfg-option-item">
+                            <input type="checkbox" class="cfg-option-checkbox" data-price="29" id="opt-num">
+                            <div class="cfg-option-info">
+                                <span class="cfg-option-icon">&#128290;</span>
+                                <div>
+                                    <div class="cfg-option-name">Num&eacute;rotation</div>
+                                    <div class="cfg-option-desc">Gravure laser du num&eacute;ro de maison</div>
+                                </div>
+                            </div>
+                            <div class="cfg-option-check">&#10003;</div>
+                            <span class="cfg-option-price">+29 &euro;</span>
+                        </label>
+                        <label class="cfg-option-item">
+                            <input type="checkbox" class="cfg-option-checkbox" data-price="49" id="opt-lock">
+                            <div class="cfg-option-info">
+                                <span class="cfg-option-icon">&#128274;</span>
+                                <div>
+                                    <div class="cfg-option-name">Verrouillage</div>
+                                    <div class="cfg-option-desc">Cylindre europ&eacute;en anti-effraction</div>
+                                </div>
+                            </div>
+                            <div class="cfg-option-check">&#10003;</div>
+                            <span class="cfg-option-price">+49 &euro;</span>
+                        </label>
+                        <label class="cfg-option-item">
+                            <input type="checkbox" class="cfg-option-checkbox" data-price="69" id="opt-solar">
+                            <div class="cfg-option-info">
+                                <span class="cfg-option-icon">&#9728;</span>
+                                <div>
+                                    <div class="cfg-option-name">&Eacute;clairage solaire</div>
+                                    <div class="cfg-option-desc">LED automatique &agrave; l&rsquo;ouverture</div>
+                                </div>
+                            </div>
+                            <div class="cfg-option-check">&#10003;</div>
+                            <span class="cfg-option-price">+69 &euro;</span>
+                        </label>
+                    </div>
+                </div>
+
+            </div><!-- /cfg-panel -->
+
+            <!-- RIGHT: Preview panel -->
+            <div class="cfg-preview-panel">
+                <div class="cfg-preview-label">Aper&ccedil;u en temps r&eacute;el</div>
+                <div class="cfg-preview-canvas">
+                    <svg id="cfg-svg" viewBox="0 0 500 360" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+                <div class="cfg-preview-info">
+                    <div class="cfg-info-row">
+                        <span class="cfg-info-label">Collection</span>
+                        <span class="cfg-info-value" id="cfg-info-collection">Armor &mdash; Acier galvanis&eacute;</span>
+                    </div>
+                    <div class="cfg-info-row">
+                        <span class="cfg-info-label">Configuration</span>
+                        <span class="cfg-info-value" id="cfg-info-bacs">1 bac 240L</span>
+                    </div>
+                    <div class="cfg-info-row">
+                        <span class="cfg-info-label">Coloris</span>
+                        <span class="cfg-info-value" id="cfg-info-color">Anthracite</span>
+                    </div>
+                </div>
+                <div class="cfg-price-block">
+                    <div class="cfg-price-label">Total estim&eacute; TTC</div>
+                    <div class="cfg-price-value" id="cfg-total-price">349 &euro;</div>
+                    <div class="cfg-price-note">Livraison gratuite &bull; 5 ans de garantie</div>
+                </div>
+                <div class="cfg-actions">
+                    <button class="cfg-btn-primary">Ajouter au panier &#8594;</button>
+                    <button class="cfg-btn-secondary">Recevoir le devis par mail</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="section reviews" id="avis">
+        <div class="section-header fade-in">
+            <div class="section-label">Avis clients v&eacute;rifi&eacute;s</div>
+            <h2 class="section-title">Ce que disent nos clients</h2>
+            <p class="section-subtitle">Plus de 1 240 avis v&eacute;rifi&eacute;s avec une note moyenne de 4.9/5.</p>
+        </div>
+
+        <div class="reviews-summary fade-in">
+            <div class="reviews-big-score">
+                <div class="score">4.9</div>
+                <div class="out-of">&#9733;&#9733;&#9733;&#9733;&#9733; / 5.0</div>
+                <div class="total">1 240 avis v&eacute;rifi&eacute;s</div>
+            </div>
+            <div class="reviews-bars">
+                <div class="review-bar-row">
+                    <div class="review-bar-label">5 &#9733;</div>
+                    <div class="review-bar"><div class="review-bar-fill" style="width:88%"></div></div>
+                    <div class="review-bar-count">1091</div>
+                </div>
+                <div class="review-bar-row">
+                    <div class="review-bar-label">4 &#9733;</div>
+                    <div class="review-bar"><div class="review-bar-fill" style="width:9%"></div></div>
+                    <div class="review-bar-count">112</div>
+                </div>
+                <div class="review-bar-row">
+                    <div class="review-bar-label">3 &#9733;</div>
+                    <div class="review-bar"><div class="review-bar-fill" style="width:2%"></div></div>
+                    <div class="review-bar-count">25</div>
+                </div>
+                <div class="review-bar-row">
+                    <div class="review-bar-label">2 &#9733;</div>
+                    <div class="review-bar"><div class="review-bar-fill" style="width:0.8%"></div></div>
+                    <div class="review-bar-count">10</div>
+                </div>
+                <div class="review-bar-row">
+                    <div class="review-bar-label">1 &#9733;</div>
+                    <div class="review-bar"><div class="review-bar-fill" style="width:0.2%"></div></div>
+                    <div class="review-bar-count">2</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reviews-grid">
+            <div class="review-card fade-in">
+                <div class="review-header">
+                    <div class="review-avatar av1">PL</div>
+                    <div class="review-meta">
+                        <h4>Pierre L.</h4>
+                        <span class="date">12 f&eacute;vrier 2026</span>
+                    </div>
+                </div>
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <div class="review-text">&laquo; Montage super simple, les panneaux arrivent pr&eacute;-mont&eacute;s. Le rendu est magnifique, bien plus qualitatif que ce que j'avais vu chez la concurrence autrichienne. Et en plus c'est fran&ccedil;ais ! &raquo;</div>
+                <div class="review-product">Produit : <strong>Armor 2 bacs 240L</strong></div>
+            </div>
+            <div class="review-card fade-in">
+                <div class="review-header">
+                    <div class="review-avatar av2">SC</div>
+                    <div class="review-meta">
+                        <h4>Sophie C.</h4>
+                        <span class="date">28 janvier 2026</span>
+                    </div>
+                </div>
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <div class="review-text">&laquo; On a pris la Provence 4 bacs pour notre maison neuve. Le m&eacute;lange bois et m&eacute;tal est superbe. Notre entr&eacute;e a compl&egrave;tement chang&eacute; d'allure. Livraison rapide et soign&eacute;e. &raquo;</div>
+                <div class="review-product">Produit : <strong>Provence 4 bacs</strong></div>
+            </div>
+            <div class="review-card fade-in">
+                <div class="review-header">
+                    <div class="review-avatar av3">MD</div>
+                    <div class="review-meta">
+                        <h4>Marc D.</h4>
+                        <span class="date">15 janvier 2026</span>
+                    </div>
+                </div>
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <div class="review-text">&laquo; J'ai h&eacute;sit&eacute; longtemps avec une marque autrichienne. Au final, pour un prix &eacute;quivalent, j'ai un produit fabriqu&eacute; &agrave; 2h de chez moi. Qualit&eacute; irr&eacute;prochable, SAV r&eacute;actif et francophone. &raquo;</div>
+                <div class="review-product">Produit : <strong>Bastide 3 bacs</strong></div>
+            </div>
+            <div class="review-card fade-in">
+                <div class="review-header">
+                    <div class="review-avatar av4">IG</div>
+                    <div class="review-meta">
+                        <h4>Isabelle G.</h4>
+                        <span class="date">3 janvier 2026</span>
+                    </div>
+                </div>
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <div class="review-text">&laquo; Le toit v&eacute;g&eacute;tal fait toute la diff&eacute;rence. Nos voisins nous demandent tous o&ugrave; on l'a trouv&eacute;e ! Tr&egrave;s contente de soutenir une entreprise fran&ccedil;aise de qualit&eacute;. &raquo;</div>
+                <div class="review-product">Produit : <strong>Armor 3 bacs + toit v&eacute;g&eacute;tal</strong></div>
+            </div>
+            <div class="review-card fade-in">
+                <div class="review-header">
+                    <div class="review-avatar av5">JM</div>
+                    <div class="review-meta">
+                        <h4>Jean-Marc R.</h4>
+                        <span class="date">18 d&eacute;cembre 2025</span>
+                    </div>
+                </div>
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <div class="review-text">&laquo; La version &Eacute;l&eacute;gance est un bijou. Design ferm&eacute;, serrure int&eacute;gr&eacute;e, finition parfaite. &Ccedil;a respire le savoir-faire. Bravo EFI. &raquo;</div>
+                <div class="review-product">Produit : <strong>&Eacute;l&eacute;gance 2 bacs</strong></div>
+            </div>
+            <div class="review-card fade-in">
+                <div class="review-header">
+                    <div class="review-avatar av6">AT</div>
+                    <div class="review-meta">
+                        <h4>Antoine T.</h4>
+                        <span class="date">5 d&eacute;cembre 2025</span>
+                    </div>
+                </div>
+                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+                <div class="review-text">&laquo; Tr&egrave;s bonne qualit&eacute; globale. La Bastide en aluminium est ultra l&eacute;g&egrave;re et facile &agrave; monter. Seul petit b&eacute;mol, j'aurais aim&eacute; plus de choix de couleurs. &raquo;</div>
+                <div class="review-product">Produit : <strong>Bastide 2 bacs</strong></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section faq" id="faq">
+        <div class="section-header fade-in">
+            <div class="section-label">Questions fr&eacute;quentes</div>
+            <h2 class="section-title">Besoin d'aide ?</h2>
+            <p class="section-subtitle">Retrouvez les r&eacute;ponses aux questions les plus pos&eacute;es par nos clients.</p>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item open fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Quels sont les d&eacute;lais de livraison ?
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Nos coffres sont exp&eacute;di&eacute;s sous 5 &agrave; 10 jours ouvrables depuis nos ateliers de Cholet. La livraison est gratuite en France m&eacute;tropolitaine. Pour la Belgique et le Luxembourg, comptez un suppl&eacute;ment de 49 &euro;.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Le montage est-il compliqu&eacute; ?
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Pas du tout ! Nos coffres arrivent pr&eacute;-assembl&eacute;s. Il ne reste qu'&agrave; fixer les panneaux lat&eacute;raux et le couvercle. Comptez 15 &agrave; 45 minutes selon le mod&egrave;le. Aucun outillage sp&eacute;cialis&eacute; n'est n&eacute;cessaire.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Quelle taille de poubelle est compatible ?
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Nos coffres acceptent les poubelles standard de 120 litres et 240 litres. La collection Bastide dispose d'une taille unique compatible avec les deux formats.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Les coffres r&eacute;sistent-ils aux intemp&eacute;ries ?
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolument. Tous nos coffres sont en acier galvanis&eacute; &agrave; chaud ou en aluminium, avec un rev&ecirc;tement poudre r&eacute;sistant aux UV, &agrave; la pluie et au gel. Nos produits sont garantis 10 ans contre la corrosion.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Peut-on personnaliser la couleur ?
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Oui ! Chaque collection est disponible en plusieurs coloris RAL standard. Pour une couleur sp&eacute;cifique hors catalogue, contactez notre &eacute;quipe pour une teinte sur mesure.</p>
+                </div>
+            </div>
+            <div class="faq-item fade-in">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    Proposez-vous un showroom ?
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Oui, notre showroom est ouvert sur rendez-vous &agrave; Cholet (49), au 53 Rue Yvette Cauchois. Vous pouvez &eacute;galement organiser une visio avec notre &eacute;quipe pour une pr&eacute;sentation d&eacute;taill&eacute;e.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+        <div class="newsletter-inner fade-in">
+            <h2>Restez inform&eacute;</h2>
+            <p>Recevez nos offres exclusives, nos nouveaut&eacute;s et nos conseils d'am&eacute;nagement directement dans votre bo&icirc;te mail.</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault()">
+                <input type="email" placeholder="Votre adresse email">
+                <button type="submit">S'inscrire</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <div class="logo-icon">EFI</div>
+                        <div class="logo-text">
+                            EFI Online
+                            <small>Groupe EFI</small>
+                        </div>
+                    </a>
+                    <p>Habillages de conteneurs haut de gamme, con&ccedil;us et fabriqu&eacute;s en France dans nos ateliers de Cholet.</p>
+                    <div class="footer-flag">
+                        <span class="fb"></span>
+                        <span class="fw"></span>
+                        <span class="fr"></span>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Collections</h4>
+                    <a href="#">Armor</a>
+                    <a href="#">Bastide</a>
+                    <a href="#">Provence</a>
+                    <a href="#">&Eacute;l&eacute;gance</a>
+                    <a href="#">Accessoires</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Informations</h4>
+                    <a href="#">&Agrave; propos</a>
+                    <a href="#">Notre showroom</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <a href="#">02 41 70 48 34</a>
+                    <a href="#">contact@efi-online.fr</a>
+                    <a href="#">53 Rue Yvette Cauchois<br>49300 Cholet</a>
+                    <a href="#" style="margin-top:8px">Showroom sur rendez-vous</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EFI Online &mdash; Groupe EFI &mdash; Tous droits r&eacute;serv&eacute;s &bull; <a href="#" style="color:rgba(255,255,255,0.6)">Mentions l&eacute;gales</a> &bull; <a href="#" style="color:rgba(255,255,255,0.6)">CGV</a> &bull; <a href="#" style="color:rgba(255,255,255,0.6)">Politique de confidentialit&eacute;</a></p>
+                <div class="footer-payments">
+                    <span class="payment-icon">VISA</span>
+                    <span class="payment-icon">MC</span>
+                    <span class="payment-icon">AMEX</span>
+                    <span class="payment-icon">PayPal</span>
+                    <span class="payment-icon">Apple Pay</span>
+                    <span class="payment-icon">CB</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const backToTop = document.getElementById('backToTop');
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+            backToTop.classList.toggle('show', window.scrollY > 500);
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), index * 80);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => observer.observe(el));
+
+        function toggleFaq(el) {
+            const item = el.closest('.faq-item');
+            const wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!wasOpen) item.classList.add('open');
+        }
+
+        /* ===================== CONFIGURATEUR ===================== */
+        (function() {
+            const COLLECTIONS = {
+                armor: {
+                    name: 'Armor', material: 'Acier galvanisé',
+                    basePrice: 349, pricePerBac: 280, style: 'metal',
+                    colors: [
+                        { name: 'Anthracite', hex: '#3d3d3d' },
+                        { name: 'Blanc', hex: '#f0f0f0', light: true },
+                        { name: 'Gris clair', hex: '#9aa5b4' },
+                        { name: 'Vert sauge', hex: '#7a9e7e' },
+                        { name: 'Bleu ardoise', hex: '#4a6fa5' }
+                    ]
+                },
+                bastide: {
+                    name: 'Bastide', material: 'Aluminium',
+                    basePrice: 599, pricePerBac: 450, style: 'alu',
+                    colors: [
+                        { name: 'Anthracite', hex: '#3d3d3d' },
+                        { name: 'Champagne', hex: '#c4a882', light: true },
+                        { name: 'Gris métal', hex: '#8a9ba8' }
+                    ]
+                },
+                provence: {
+                    name: 'Provence', material: 'Bois & métal',
+                    basePrice: 899, pricePerBac: 650, style: 'wood',
+                    colors: [
+                        { name: 'Naturel', hex: '#a0784c', light: true },
+                        { name: 'Anthracite', hex: '#3d3d3d' },
+                        { name: 'Chêne clair', hex: '#c8a87a', light: true },
+                        { name: 'Gris ardoise', hex: '#5e6e7e' }
+                    ]
+                },
+                elegance: {
+                    name: 'Élégance', material: 'Acier intégral',
+                    basePrice: 799, pricePerBac: 580, style: 'premium',
+                    colors: [
+                        { name: 'Anthracite', hex: '#2d2d2d' },
+                        { name: 'Blanc mat', hex: '#eeeeee', light: true },
+                        { name: 'Gris anthracite', hex: '#555d6b' },
+                        { name: 'Noir satiné', hex: '#1a1a1a' }
+                    ]
+                }
+            };
+
+            let state = { collection: 'armor', bacs: 1, color: 'Anthracite', colorHex: '#3d3d3d', opts: {} };
+
+            function shade(hex, pct) {
+                const n = parseInt(hex.replace('#',''), 16);
+                const a = Math.round(2.55 * pct);
+                const r = Math.min(255, Math.max(0, (n >> 16) + a));
+                const g = Math.min(255, Math.max(0, (n >> 8 & 0xFF) + a));
+                const b = Math.min(255, Math.max(0, (n & 0xFF) + a));
+                return '#' + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
+            }
+
+            function renderSVG() {
+                const svg = document.getElementById('cfg-svg');
+                if (!svg) return;
+                const col = COLLECTIONS[state.collection];
+                const n = state.bacs;
+                const mc = state.colorHex;
+                const dc = shade(mc, -28);
+                const lc = shade(mc, 28);
+                const sc = shade(mc, -48);
+                const isWood = col.style === 'wood';
+                const isPremium = col.style === 'premium';
+                const isAlu = col.style === 'alu';
+
+                const VW = 500, VH = 360;
+                const BW = 86, BH = 150, PX = 16, PY = 14;
+                const ROOF_H = isWood ? 30 : (isPremium ? 20 : 14);
+                const OVERHANG = isWood ? 16 : 10;
+                const HW = n * BW + PX * 2;
+                const HH = BH + PY * 2;
+                const x0 = (VW - HW) / 2;
+                const y0 = (VH - HH - ROOF_H) / 2 + 4;
+
+                let s = `<defs>
+                    <linearGradient id="gMain" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="${lc}"/>
+                        <stop offset="100%" stop-color="${dc}"/>
+                    </linearGradient>
+                    <linearGradient id="gRoof" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="${shade(mc,20)}"/>
+                        <stop offset="100%" stop-color="${shade(mc,-20)}"/>
+                    </linearGradient>
+                    <linearGradient id="gDoor" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="${shade(mc,-10)}"/>
+                        <stop offset="100%" stop-color="${shade(mc,-30)}"/>
+                    </linearGradient>
+                    <filter id="dropshadow">
+                        <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="rgba(0,0,0,0.18)"/>
+                    </filter>
+                    ${isWood ? `<pattern id="woodGrain" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(90)">
+                        <line x1="0" y1="0" x2="0" y2="8" stroke="${shade(mc,-20)}" stroke-width="1" opacity="0.4"/>
+                    </pattern>` : ''}
+                </defs>`;
+
+                /* ground shadow */
+                s += `<ellipse cx="${VW/2}" cy="${y0+HH+ROOF_H+14}" rx="${HW*0.52}" ry="10" fill="rgba(0,0,0,0.1)"/>`;
+
+                /* roof */
+                const rx = x0 - OVERHANG, rw = HW + OVERHANG * 2;
+                if (state.opts.toit) {
+                    const segW = rw / 6;
+                    const gcs = ['#4a7c3f','#5a8f4d','#3d6b33','#618f52','#437338','#507a43'];
+                    for (let i = 0; i < 6; i++) {
+                        s += `<rect x="${rx + segW*i}" y="${y0-ROOF_H}" width="${segW}" height="${ROOF_H}" fill="${gcs[i]}" opacity="0.9"/>`;
+                        for (let t = 0; t < 3; t++) {
+                            s += `<ellipse cx="${rx+segW*i+segW*0.2+t*segW*0.3}" cy="${y0-ROOF_H+ROOF_H*0.5}" rx="4" ry="3" fill="${shade(gcs[i],15)}" opacity="0.6"/>`;
+                        }
+                    }
+                    s += `<rect x="${rx}" y="${y0-ROOF_H}" width="${rw}" height="${ROOF_H}" rx="3" fill="none" stroke="${dc}" stroke-width="1.5"/>`;
+                } else if (isWood) {
+                    const px = x0 + HW/2, py = y0 - ROOF_H;
+                    s += `<polygon points="${rx},${y0} ${px},${py} ${rx+rw},${y0}" fill="url(#gRoof)" filter="url(#dropshadow)"/>`;
+                    s += `<polygon points="${rx},${y0} ${px},${py} ${rx+rw},${y0}" fill="none" stroke="${dc}" stroke-width="1.5" stroke-linejoin="round"/>`;
+                    /* ridge cap */
+                    s += `<line x1="${px-4}" y1="${py+1}" x2="${px+4}" y2="${py+1}" stroke="${shade(mc,35)}" stroke-width="3" stroke-linecap="round"/>`;
+                } else {
+                    s += `<rect x="${rx}" y="${y0-ROOF_H}" width="${rw}" height="${ROOF_H}" rx="3" fill="url(#gRoof)" filter="url(#dropshadow)"/>`;
+                    /* roof edge highlight */
+                    s += `<line x1="${rx+4}" y1="${y0-ROOF_H+2}" x2="${rx+rw-4}" y2="${y0-ROOF_H+2}" stroke="${shade(mc,40)}" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>`;
+                }
+
+                /* main housing body */
+                s += `<rect x="${x0}" y="${y0}" width="${HW}" height="${HH}" rx="4" fill="url(#gMain)" filter="url(#dropshadow)"/>`;
+                /* body right-side depth */
+                s += `<rect x="${x0+HW-5}" y="${y0+2}" width="5" height="${HH-4}" rx="2" fill="${sc}" opacity="0.35"/>`;
+                /* body bottom trim */
+                s += `<rect x="${x0}" y="${y0+HH-8}" width="${HW}" height="8" rx="0 0 4 4" fill="${shade(mc,-38)}" opacity="0.5"/>`;
+
+                /* bac doors */
+                for (let i = 0; i < n; i++) {
+                    const dx = x0 + PX + i * BW + 4;
+                    const dy = y0 + PY;
+                    const dw = BW - 8, dh = BH;
+
+                    /* door bg */
+                    s += `<rect x="${dx}" y="${dy}" width="${dw}" height="${dh}" rx="3" fill="url(#gDoor)" stroke="${sc}" stroke-width="0.8"/>`;
+                    /* door inset panel */
+                    const ip = 8;
+                    s += `<rect x="${dx+ip}" y="${dy+ip}" width="${dw-ip*2}" height="${dh-ip*2}" rx="2" fill="${shade(mc,-12)}" opacity="0.65"/>`;
+
+                    /* wood slats overlay */
+                    if (isWood) {
+                        const slatN = 6;
+                        for (let t = 1; t < slatN; t++) {
+                            const sy = dy + ip + ((dh-ip*2)/slatN)*t;
+                            s += `<line x1="${dx+ip+2}" y1="${sy}" x2="${dx+dw-ip-2}" y2="${sy}" stroke="${shade(mc,-35)}" stroke-width="1.5" opacity="0.5"/>`;
+                        }
+                    }
+
+                    /* alu brushed sheen */
+                    if (isAlu) {
+                        s += `<rect x="${dx+ip+2}" y="${dy+ip+2}" width="${(dw-ip*2)*0.35}" height="${dh-ip*2-4}" rx="1" fill="rgba(255,255,255,0.1)"/>`;
+                    }
+
+                    /* hinges */
+                    const hingeX = dx + 5;
+                    [dy + dh*0.22, dy + dh*0.72].forEach(hy => {
+                        s += `<rect x="${hingeX-2}" y="${hy-5}" width="4" height="10" rx="1" fill="${shade(mc,30)}" opacity="0.85"/>`;
+                    });
+
+                    /* handle */
+                    const hcx = dx + dw/2, hcy = dy + dh*0.68;
+                    if (isPremium) {
+                        /* long bar handle */
+                        s += `<rect x="${hcx-15}" y="${hcy-4}" width="30" height="8" rx="4" fill="${shade(mc,38)}" stroke="${shade(mc,20)}" stroke-width="0.8"/>`;
+                    } else if (isAlu) {
+                        /* recessed pull */
+                        s += `<rect x="${hcx-10}" y="${hcy-3}" width="20" height="6" rx="3" fill="${shade(mc,25)}" stroke="${shade(mc,10)}" stroke-width="0.8"/>`;
+                    } else {
+                        /* round knob */
+                        s += `<circle cx="${hcx}" cy="${hcy}" r="5" fill="${shade(mc,42)}" stroke="${shade(mc,22)}" stroke-width="0.8"/>`;
+                        s += `<circle cx="${hcx}" cy="${hcy}" r="2" fill="${shade(mc,55)}" opacity="0.5"/>`;
+                    }
+
+                    /* lock icon */
+                    if (state.opts.lock) {
+                        const lx = dx + dw - 10, ly = dy + dh*0.18;
+                        s += `<rect x="${lx-4}" y="${ly}" width="8" height="7" rx="1.5" fill="${shade(mc,40)}"/>`;
+                        s += `<path d="M ${lx-2.5} ${ly} Q ${lx-2.5} ${ly-5} ${lx} ${ly-5} Q ${lx+2.5} ${ly-5} ${lx+2.5} ${ly}" fill="none" stroke="${shade(mc,40)}" stroke-width="1.5"/>`;
+                    }
+                }
+
+                /* dividers between bacs */
+                for (let i = 1; i < n; i++) {
+                    const lx = x0 + PX + i * BW;
+                    s += `<line x1="${lx}" y1="${y0+4}" x2="${lx}" y2="${y0+HH-4}" stroke="${sc}" stroke-width="1" opacity="0.4"/>`;
+                }
+
+                /* number plate */
+                if (state.opts.num) {
+                    const npx = x0 + HW*0.5, npy = y0 + 10;
+                    s += `<rect x="${npx-18}" y="${npy-7}" width="36" height="16" rx="3" fill="${shade(mc,45)}" opacity="0.92" stroke="${shade(mc,30)}" stroke-width="0.8"/>`;
+                    s += `<text x="${npx}" y="${npy+4}" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="${mc}">42</text>`;
+                }
+
+                /* solar LEDs */
+                if (state.opts.solar) {
+                    const ledN = Math.max(4, n * 3);
+                    const ledY = y0 - ROOF_H + 5;
+                    for (let l = 0; l < ledN; l++) {
+                        const lx = rx + 20 + (rw-40) / (ledN-1) * l;
+                        s += `<circle cx="${lx}" cy="${ledY}" r="3" fill="#fff9c4" opacity="0.95"/>`;
+                        s += `<circle cx="${lx}" cy="${ledY}" r="6" fill="#fff9c4" opacity="0.15"/>`;
+                    }
+                }
+
+                /* Made in France badge */
+                s += `<g opacity="0.9">
+                    <rect x="${x0+HW-52}" y="${y0+HH+18}" width="52" height="16" rx="3" fill="#1a3a5c"/>
+                    <text x="${x0+HW-26}" y="${y0+HH+28}" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" font-weight="600" fill="white">🇫🇷 Made in FR</text>
+                </g>`;
+
+                svg.innerHTML = s;
+            }
+
+            function calcPrice() {
+                const col = COLLECTIONS[state.collection];
+                let p = col.basePrice + (state.bacs - 1) * col.pricePerBac;
+                document.querySelectorAll('.cfg-option-checkbox').forEach(cb => {
+                    if (cb.checked) p += parseInt(cb.dataset.price);
+                });
+                return p;
+            }
+
+            function updateColorSwatches() {
+                const container = document.getElementById('cfg-colors-container');
+                if (!container) return;
+                const col = COLLECTIONS[state.collection];
+                container.innerHTML = '';
+                const found = col.colors.find(c => c.name === state.color);
+                if (!found) { state.color = col.colors[0].name; state.colorHex = col.colors[0].hex; }
+                col.colors.forEach(c => {
+                    const sw = document.createElement('div');
+                    sw.className = 'cfg-color-swatch' + (c.name === state.color ? ' active' : '');
+                    sw.style.background = c.hex;
+                    if (c.light) sw.style.boxShadow = '0 0 0 1px #ccc, 0 2px 6px rgba(0,0,0,0.12)';
+                    sw.title = c.name;
+                    sw.addEventListener('click', () => {
+                        state.color = c.name; state.colorHex = c.hex;
+                        updateUI();
+                    });
+                    container.appendChild(sw);
+                });
+            }
+
+            function updateUI() {
+                const col = COLLECTIONS[state.collection];
+                updateColorSwatches();
+                const cnEl = document.getElementById('cfg-color-name');
+                if (cnEl) cnEl.textContent = state.color;
+                const icEl = document.getElementById('cfg-info-collection');
+                if (icEl) icEl.textContent = col.name + ' — ' + col.material;
+                const ibEl = document.getElementById('cfg-info-bacs');
+                if (ibEl) ibEl.textContent = state.bacs + ' bac' + (state.bacs > 1 ? 's' : '') + ' 240L';
+                const icoEl = document.getElementById('cfg-info-color');
+                if (icoEl) icoEl.textContent = state.color;
+                const prEl = document.getElementById('cfg-total-price');
+                if (prEl) prEl.textContent = calcPrice().toLocaleString('fr-FR') + ' €';
+                renderSVG();
+            }
+
+            function init() {
+                /* collection cards */
+                document.querySelectorAll('.cfg-col-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        document.querySelectorAll('.cfg-col-card').forEach(c => c.classList.remove('active'));
+                        card.classList.add('active');
+                        state.collection = card.dataset.collection;
+                        const firstColor = COLLECTIONS[state.collection].colors[0];
+                        state.color = firstColor.name; state.colorHex = firstColor.hex;
+                        updateUI();
+                    });
+                });
+
+                /* bac buttons */
+                document.querySelectorAll('.cfg-bac-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.cfg-bac-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        state.bacs = parseInt(btn.dataset.bacs);
+                        updateUI();
+                    });
+                });
+
+                /* options */
+                document.querySelectorAll('.cfg-option-item').forEach(item => {
+                    const cb = item.querySelector('.cfg-option-checkbox');
+                    item.addEventListener('click', () => {
+                        cb.checked = !cb.checked;
+                        const key = cb.id.replace('opt-', '');
+                        state.opts[key] = cb.checked;
+                        item.classList.toggle('checked', cb.checked);
+                        updateUI();
+                    });
+                });
+
+                updateColorSwatches();
+                renderSVG();
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+    </script>
+</body>
+</html>
